@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/task_detail_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".detail.TaskDetailActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="56dp">
+
+            <ImageView
+                android:id="@+id/iv_backEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="8dp"
+                app:srcCompat="@drawable/ic_back_black_24dp" />
+
+            <TextView
+                android:id="@+id/tv_edit_task"
+                style="@style/h1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_toEndOf="@+id/iv_backEdit"
+                android:text="Edit Task"
+                android:textSize="18sp" />
+
+
+            <ImageView
+                android:id="@+id/iv_delete_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="12dp"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_delete_24dp" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
+            android:weightSum="3">
+
+            <FrameLayout
+                android:id="@+id/high_importance"
+                android:layout_width="0dp"
+                android:layout_height="47dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_outline">
+
+                <ImageView
+                    android:id="@+id/ic_importance_high"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/shape_importance_high"
+                    android:padding="2dp" />
+
+                <TextView
+                    style="@style/h3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:text="High" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/normal_importance"
+                android:layout_width="0dp"
+                android:layout_height="47dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_outline">
+
+                <ImageView
+                    android:id="@+id/ic_importance_normal"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/shape_importance_normal"
+                    android:padding="2dp"
+                    app:srcCompat="@drawable/ic_check_white_24dp" />
+
+                <TextView
+                    style="@style/h3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:text="Normal" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/low_importance"
+                android:layout_width="0dp"
+                android:layout_height="47dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_outline">
+
+                <ImageView
+                    android:id="@+id/ic_importance_low"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/shape_importance_low"
+                    android:padding="2dp" />
+
+                <TextView
+                    style="@style/h3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:text="Low" />
+            </FrameLayout>
+
+        </LinearLayout>
+        
+        <EditText
+            android:id="@+id/et_edit_task"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Add a task for today ..."
+            android:gravity="top|start"
+            android:layout_marginTop="70dp"
+            android:textSize="18sp"
+            android:textColor="@color/defaultTextColor"
+            android:textColorHint="@color/defaultTextColor"
+            android:layout_marginHorizontal="12dp"/>
+
+
+    </FrameLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save_changes"
+        style="@style/PrimaryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_margin="32dp"
+        android:minHeight="65dp"
+        android:paddingHorizontal="24dp"
+        android:text="Save Changes"
+        android:textAllCaps="false"
+        app:icon="@drawable/ic_circle_done_white_24dp"
+        app:iconGravity="end" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

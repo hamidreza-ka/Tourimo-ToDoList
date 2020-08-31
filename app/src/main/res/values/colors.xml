@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#794CFF</color>
+    <color name="colorPrimaryDark">#6724FF</color>
+    <color name="colorSecondary">#3BE1F1</color>
+    <color name="colorAccent">#3BE1F1</color>
+    <color name="defaultTextColor">#1D2830</color>
+    <color name="black">#1D2830</color>
+    <color name="secondaryTextColor">#AFBED0</color>
+    <color name="secondaryIconColor">#AFBED0</color>
+    <color name="white">#fff</color>
+    <color name="textColorOnSurface">#E6ffffff</color>
+    <color name="secondaryButtonBackgroundTint">#EAEFF5</color>
+    <color name="lightGray">#E3E8EE</color>
+
+</resources>
