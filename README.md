@@ -1,5 +1,6 @@
 # Tourimo-ToDoList
-My First Professional Project With Android Architecture Components
 
-![Dashboard](https://user-images.githubusercontent.com/70535911/91760317-648b1d00-ebe8-11ea-8d40-f2f625bcd1e7.png)        ![AddTask](https://user-images.githubusercontent.com/70535911/91760575-d5cad000-ebe8-11ea-8c1a-daf6b38863ae.png)
+![dashboard](https://user-images.githubusercontent.com/70535911/91821304-b4e79680-ec4b-11ea-8a67-00399eb48bce.png)
 
+
+![detail](https://user-images.githubusercontent.com/70535911/91821403-bca73b00-ec4b-11ea-8af8-838ddecbb91e.png)
