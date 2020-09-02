@@ -1,3 +1,3 @@
 # Tourimo-ToDoList
 
-<img src="https://user-images.githubusercontent.com/70535911/91821304-b4e79680-ec4b-11ea-8a67-00399eb48bce.png" height="600" width="337" align="left"> <img src="https://user-images.githubusercontent.com/70535911/91821403-bca73b00-ec4b-11ea-8af8-838ddecbb91e.png" height="600" width="337" align="center">
+<img src="https://user-images.githubusercontent.com/70535911/91941265-2e47bd80-ed0e-11ea-84e8-91c9f201eb36.png" height="600" width="337" align="left"> <img src="https://user-images.githubusercontent.com/70535911/91941356-5800e480-ed0e-11ea-89fa-868de24f2611.png" height="600" width="337" align="center">
