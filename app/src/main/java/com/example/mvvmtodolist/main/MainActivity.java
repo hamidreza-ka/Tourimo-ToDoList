@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.onTas
     private TaskAdapter taskAdapter;
     private RecyclerView recyclerView;
     private View emptyState;
+   // asd
     private ProgressBar progressBar;
 
 
