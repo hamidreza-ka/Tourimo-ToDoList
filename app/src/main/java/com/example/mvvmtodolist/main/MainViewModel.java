@@ -1,6 +1,7 @@
 package com.example.mvvmtodolist.main;
 
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.example.mvvmtodolist.model.Task;
 import com.example.mvvmtodolist.model.TaskDao;
@@ -9,10 +10,10 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Maybe;
-import io.reactivex.subjects.BehaviorSubject;
 
 
-public class MainViewModel {
+
+public class MainViewModel extends ViewModel {
     private TaskDao taskDao;
     private MutableLiveData<Boolean> showProgressBar = new MutableLiveData<>();
 

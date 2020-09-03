@@ -11,18 +11,14 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mvvmtodolist.R;
-import com.example.mvvmtodolist.databinding.ActivityMainBinding;
 import com.example.mvvmtodolist.detail.TaskDetailActivity;
-import com.example.mvvmtodolist.model.AppDatabase;
 import com.example.mvvmtodolist.model.Task;
 
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -47,23 +43,14 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.onTas
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        viewModel = new MainViewModel(AppDatabase.getAppDatabase(this).getTaskDao());
+        viewModel = new ViewModelProvider(this, new MainViewModelFactory(this)).get(MainViewModel.class);
         taskAdapter = new TaskAdapter(this, this);
         emptyState = findViewById(R.id.emptyState);
 
         progressBar = findViewById(R.id.main_progress_bar);
 
-        viewModel.getShowProgressBar().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean showBoolean) {
-             progressBar.setVisibility(showBoolean? View.VISIBLE : View.GONE);
-            }
-        });
+        viewModel.getShowProgressBar().observe(this, showBoolean -> progressBar.setVisibility(showBoolean ? View.VISIBLE : View.GONE));
 
-
-//        viewModel.getProgressBarSubject()
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(showBoolean -> progressBar.setVisibility(showBoolean ? View.VISIBLE : View.GONE));
 
         View btnAddTask = findViewById(R.id.addNewTaskBtn);
         btnAddTask.setOnClickListener(v -> {
