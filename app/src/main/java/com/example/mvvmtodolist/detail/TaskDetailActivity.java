@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mvvmtodolist.R;
 import com.example.mvvmtodolist.main.MainActivity;
@@ -26,7 +27,11 @@ public class TaskDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail);
-        viewModel = new TaskViewModel(AppDatabase.getAppDatabase(this).getTaskDao(), getIntent().getParcelableExtra(MainActivity.KEY_CODE_EXTRA));
+
+        viewModel = new ViewModelProvider(this,new TaskViewModelFactory(AppDatabase.getAppDatabase(this).getTaskDao()
+                , getIntent().getParcelableExtra(MainActivity.KEY_CODE_EXTRA))).get(TaskViewModel.class);
+
+
         taskTitle = findViewById(R.id.et_edit_task);
 
         View btnBack = findViewById(R.id.iv_backEdit);

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mvvmtodolist.R;
 import com.example.mvvmtodolist.detail.TaskDetailActivity;
+import com.example.mvvmtodolist.model.AppDatabase;
 import com.example.mvvmtodolist.model.Task;
 
 
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.onTas
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        viewModel = new ViewModelProvider(this, new MainViewModelFactory(this)).get(MainViewModel.class);
+        viewModel = new ViewModelProvider(this, new MainViewModelFactory(AppDatabase.getAppDatabase(getApplicationContext()).getTaskDao())).get(MainViewModel.class);
         taskAdapter = new TaskAdapter(this, this);
         emptyState = findViewById(R.id.emptyState);
 

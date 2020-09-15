@@ -1,9 +1,11 @@
 package com.example.mvvmtodolist.detail;
 
+import androidx.lifecycle.ViewModel;
+
 import com.example.mvvmtodolist.model.Task;
 import com.example.mvvmtodolist.model.TaskDao;
 
-public class TaskViewModel {
+public class TaskViewModel extends ViewModel {
     private Task addTask;
     private Task updateTask;
     private TaskDao taskDao;
