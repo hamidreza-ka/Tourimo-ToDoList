@@ -28,7 +28,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail);
 
-        viewModel = new ViewModelProvider(this,new TaskViewModelFactory(AppDatabase.getAppDatabase(this).getTaskDao()
+        viewModel = new ViewModelProvider(this, new TaskViewModelFactory(AppDatabase.getAppDatabase(this).getTaskDao()
                 , getIntent().getParcelableExtra(MainActivity.KEY_CODE_EXTRA))).get(TaskViewModel.class);
 
 
@@ -39,18 +39,14 @@ public class TaskDetailActivity extends AppCompatActivity {
 
         View btnSaveChanges = findViewById(R.id.btn_save_changes);
         btnSaveChanges.setOnClickListener(v -> {
+
             if (taskTitle.getText().toString().isEmpty()) {
                 showError();
                 return;
             }
 
             viewModel.saveTask(selectedImportance, taskTitle.getText().toString());
-            if (viewModel.getResultTask() == "add") {
-                returnResult(MainActivity.RESULT_CODE_ADD_TASK, viewModel.getAddTask());
-
-            } else if (viewModel.getResultTask() == "update") {
-                returnResult(MainActivity.RESULT_CODE_UPDATE_TASK, viewModel.getUpdateTask());
-            }
+            finish();
 
         });
 
@@ -58,15 +54,22 @@ public class TaskDetailActivity extends AppCompatActivity {
         btnDeleteTask.setVisibility(viewModel.isSetDeleteBtnVisibility() ? View.VISIBLE : View.GONE);
         btnDeleteTask.setOnClickListener(v -> {
             viewModel.deleteTask();
-
-            if (viewModel.getResultTask() == "delete") {
-                returnResult(MainActivity.RESULT_CODE_DELETE_TASK, viewModel.getUpdateTask());
-            }
+            finish();
         });
 
 
         View normalImportanceBtn = findViewById(R.id.normal_importance);
         lastSelectedImportanceIv = normalImportanceBtn.findViewById(R.id.ic_importance_normal);
+        normalImportanceBtn.setOnClickListener(v -> {
+            if (selectedImportance != Task.IMPORTANCE_NORMAL) {
+                lastSelectedImportanceIv.setImageResource(0);
+                ImageView imageView = v.findViewById(R.id.ic_importance_normal);
+                imageView.setImageResource(R.drawable.ic_check_white_24dp);
+                selectedImportance = Task.IMPORTANCE_NORMAL;
+
+                lastSelectedImportanceIv = imageView;
+            }
+        });
 
         final View highImportanceBtn = findViewById(R.id.high_importance);
         highImportanceBtn.setOnClickListener(v -> {
@@ -80,16 +83,6 @@ public class TaskDetailActivity extends AppCompatActivity {
             }
         });
 
-        normalImportanceBtn.setOnClickListener(v -> {
-            if (selectedImportance != Task.IMPORTANCE_NORMAL) {
-                lastSelectedImportanceIv.setImageResource(0);
-                ImageView imageView = v.findViewById(R.id.ic_importance_normal);
-                imageView.setImageResource(R.drawable.ic_check_white_24dp);
-                selectedImportance = Task.IMPORTANCE_NORMAL;
-
-                lastSelectedImportanceIv = imageView;
-            }
-        });
 
         final View lowImportanceBtn = findViewById(R.id.low_importance);
         lowImportanceBtn.setOnClickListener(v -> {
@@ -129,25 +122,8 @@ public class TaskDetailActivity extends AppCompatActivity {
     }
 
 
-    public void setDeleteButtonVisibility(boolean visible) {
-        try {
-            btnDeleteTask.setVisibility(visible ? View.VISIBLE : View.GONE);
-        } catch (Exception e) {
-        }
-
-    }
-
-
     public void showError() {
         Snackbar.make(findViewById(R.id.task_detail_root), "Plz Enter Title Task :)", Snackbar.LENGTH_SHORT).show();
-    }
-
-
-    public void returnResult(int resultCode, Task task) {
-        Intent intent = new Intent();
-        intent.putExtra(MainActivity.KEY_CODE_EXTRA, task);
-        setResult(resultCode, intent);
-        finish();
     }
 
 }

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">To Do List</string>
+    <string name="add_new_task">Add New Task</string>
+    <string name="try_adding_some_tasks_to_see_them_here">Try adding some tasks to see them here</string>
+    <string name="delete_all">Delete All</string>
+    <string name="today">Today</string>
+    <string name="search_tasks">Search tasks ...</string>
+    <string name="to_do_list">To Do List</string>
 </resources>

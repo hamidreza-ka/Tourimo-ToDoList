@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Maybe;
-
+import io.reactivex.Observable;
 
 
 public class MainViewModel extends ViewModel {
@@ -21,11 +21,12 @@ public class MainViewModel extends ViewModel {
         this.taskDao = taskDao;
     }
 
-    public Maybe<List<Task>> getTasks() {
+    public Observable<List<Task>> getTasks() {
         showProgressBar.setValue(true);
         return taskDao.getTasks()
-                .delay(2, TimeUnit.SECONDS)
-                .doFinally(() -> showProgressBar.postValue(false));
+               .delay(2, TimeUnit.SECONDS)
+                .doOnEach(tasks -> showProgressBar.postValue(false));
+
 
     }
 

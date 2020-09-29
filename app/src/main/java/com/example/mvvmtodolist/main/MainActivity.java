@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,11 @@ import com.example.mvvmtodolist.model.AppDatabase;
 import com.example.mvvmtodolist.model.Task;
 
 
+import java.util.List;
+
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -35,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.onTas
     private TaskAdapter taskAdapter;
     private RecyclerView recyclerView;
     private View emptyState;
-   // asd
+    private Disposable disposable;
     private ProgressBar progressBar;
 
 
@@ -55,14 +60,11 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.onTas
 
 
         View btnAddTask = findViewById(R.id.addNewTaskBtn);
-        btnAddTask.setOnClickListener(v -> {
-            startActivityForResult(new Intent(MainActivity.this, TaskDetailActivity.class), REQUEST_CODE);
-        });
+        btnAddTask.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, TaskDetailActivity.class)));
 
         View btnClearTasks = findViewById(R.id.btn_main_deleteAll);
         btnClearTasks.setOnClickListener(v -> {
             viewModel.clearTasks();
-            taskAdapter.deleteItems();
             setEmptyState(true);
         });
 
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.onTas
 
                 viewModel.searchTasks(s.toString()).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(tasks -> taskAdapter.searchItem(tasks));
+                        .subscribe(tasks -> taskAdapter.showTasks(tasks));
 
             }
 
@@ -92,14 +94,33 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.onTas
         recyclerView = findViewById(R.id.rv_main);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
-        viewModel.getTasks()
-                .subscribeOn(Schedulers.io())
+        viewModel.getTasks().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(tasks -> {
-                    taskAdapter.showTasks(tasks);
-                    recyclerView.setAdapter(taskAdapter);
-                    setEmptyState(taskAdapter.getItemCount() == 0);
-                });
+                .subscribe(new Observer<List<Task>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onNext(List<Task> tasks) {
+
+                taskAdapter.showTasks(tasks);
+                recyclerView.setAdapter(taskAdapter);
+                setEmptyState(taskAdapter.getItemCount() == 0);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Toast.makeText(MainActivity.this, "db dose not valid", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onComplete() {
+                if (disposable != null)
+                disposable.dispose();
+            }
+        });
 
 
     }
@@ -108,44 +129,18 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.onTas
         emptyState.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE) {
-            if ((resultCode == RESULT_CODE_ADD_TASK || resultCode == RESULT_CODE_UPDATE_TASK || resultCode == RESULT_CODE_DELETE_TASK) && data != null) {
-                Task task = data.getParcelableExtra(KEY_CODE_EXTRA);
-
-                if (task != null) {
-                    if (resultCode == RESULT_CODE_ADD_TASK) {
-                        taskAdapter.addTask(task);
-
-                    } else if (resultCode == RESULT_CODE_UPDATE_TASK) {
-                        taskAdapter.updateTask(task);
-                    } else
-                        taskAdapter.deleteItem(task);
-
-                    setEmptyState(false);
-                }
-
-
-            }
-
-        }
-    }
-
     @Override
     public void onItemClickListener(Task task) {
         boolean isChecked = !task.getChecked();
         task.setChecked(isChecked);
-        viewModel.updateTask(task);
         taskAdapter.updateTask(task);
+        viewModel.updateTask(task);
     }
 
     @Override
     public void onItemLongClick(Task task) {
         Intent intent = new Intent(MainActivity.this, TaskDetailActivity.class);
         intent.putExtra(KEY_CODE_EXTRA, task);
-        startActivityForResult(intent, REQUEST_CODE);
+        startActivity(intent);
     }
 }

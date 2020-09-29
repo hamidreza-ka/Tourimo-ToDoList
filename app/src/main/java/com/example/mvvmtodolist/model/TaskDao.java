@@ -8,7 +8,10 @@ import androidx.room.Update;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
+import io.reactivex.Single;
 
 
 @Dao
@@ -18,13 +21,13 @@ public interface TaskDao {
     Long insert(Task task);
 
     @Delete
-    int delete(Task task);
+    void delete(Task task);
 
     @Update
     int update(Task task);
 
     @Query("SELECT * FROM tbl_tasks ORDER BY priority ASC")
-    Maybe<List<Task>> getTasks();
+    Observable<List<Task>> getTasks();
 
     @Query("DELETE FROM tbl_tasks")
     void deleteAll();

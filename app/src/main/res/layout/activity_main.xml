@@ -40,7 +40,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="12dp"
-                        android:text="To Do List"
+                        android:text="@string/to_do_list"
                         android:textColor="@android:color/white"
                         android:textSize="18sp" />
 
@@ -67,7 +67,7 @@
                     android:drawablePadding="8dp"
                     android:elevation="10dp"
                     android:fontFamily="@font/primary_regular"
-                    android:hint="Search tasks ..."
+                    android:hint="@string/search_tasks"
                     android:paddingStart="12dp"
                     android:textColorHint="@color/secondaryTextColor" />
 
@@ -82,7 +82,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/primary_bold"
-                android:text="Today"
+                android:text="@string/today"
                 android:textColor="@color/defaultTextColor" />
 
             <View
@@ -105,7 +105,7 @@
                 android:layout_marginEnd="12dp"
                 android:drawableEnd="@drawable/ic_delete_24dp"
                 android:elevation="1dp"
-                android:text="Delete All"
+                android:text="@string/delete_all"
                 android:textAllCaps="false"
                 android:textColor="@color/secondaryTextColor"
                 android:textSize="13dp" />
@@ -142,7 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Try adding some tasks to see them here"
+                android:text="@string/try_adding_some_tasks_to_see_them_here"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -155,7 +155,7 @@
             android:layout_margin="32dp"
             android:minHeight="65dp"
             android:paddingHorizontal="24dp"
-            android:text="Add New Task"
+            android:text="@string/add_new_task"
             android:textAllCaps="false"
             app:icon="@drawable/ic_add_24dp"
             app:iconGravity="end" />
@@ -164,7 +164,8 @@
             android:id="@+id/main_progress_bar"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:visibility="gone"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

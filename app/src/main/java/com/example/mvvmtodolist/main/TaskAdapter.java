@@ -46,26 +46,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.BindTask(tasks.get(position));
     }
 
-    public void addTask(Task task) {
-        switch (task.getPriority()){
-            case Task.IMPORTANCE_LOW:
-                tasks.add(0, task);
-                notifyItemInserted(0);
-                break;
-            case Task.IMPORTANCE_NORMAL:
-                tasks.add(0, task);
-                notifyItemInserted(0);
-                break;
-            case Task.IMPORTANCE_HIGH:
-                tasks.add(task);
-                notifyItemInserted(tasks.size());
-                break;
-        }
-
-    }
 
     public void showTasks(List<Task> tasks) {
-        this.tasks.addAll(tasks);
+        this.tasks = tasks;
         notifyDataSetChanged();
     }
 
@@ -77,22 +60,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 break;
             }
         }
-    }
-
-    public void deleteItem(Task task) {
-        int result = tasks.indexOf(task);
-        tasks.remove(result);
-        notifyItemRemoved(result);
-    }
-
-    public void deleteItems(){
-        this.tasks.clear();
-        notifyDataSetChanged();
-    }
-
-    public void searchItem(List<Task> tasks){
-        this.tasks = tasks;
-        notifyDataSetChanged();
     }
 
     @Override
